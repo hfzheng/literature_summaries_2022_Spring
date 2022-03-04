@@ -1,0 +1,58 @@
+
+\documentclass{article}[12pt]
+
+
+\usepackage{amsfonts,amsmath,amscd,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{geometry}
+\usepackage{setspace}
+\geometry{ margin=1in}
+\doublespacing
+
+
+\title{\textbf{Summary on basic time series studies\\ \large tensor data analysis with different data types}}
+\author{Haofan Zheng}
+\date{}
+
+\begin{document}
+
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{$\alpha$-PCA method}
+\subsection{Overall Summary}
+This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
+
+
+
+\subsection{Main model}
+The model is shown as the following:
+
+$$\mathbf{Y}_t = \mathbf{R}\mathbf{F}_t\mathbf{C}^T+\mathbf{E}_t$$
+
+$\mathbf{Y_t}: \mathbf{Y_t}\in \mathbb{R}^{p\times q}$, $1\leq t \leq T$, observations
+
+$\mathbf{F_t}: \mathbf{F_t}\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll q$ (\textbf{low rank}), latent matrix
+
+$\mathbf{E_t}: \mathbf{E_t}\in \mathbb{R}^{p \times q}$, noise matrix
+
+\subsection{Main Statistics}
+
+$$\mathbf{\hat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \mathbf{}\Bigg)$$
+
+$$\mathbf{\hat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \Bigg)$$
+
+$\alpha: \alpha \in \left[-1,+\infty \right)$, a hyperparameter 
+
+$\mathbf{\bar{Y}}=\dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the sample mean
+\subsection{Theoretical Properties}
+\subsection{Simulation}
+\subsection{Application}
+    
+   
+
+\end{document}
