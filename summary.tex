@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \usepackage{geometry}
 \usepackage{setspace}
+\usepackage{hyperref}
 \geometry{ margin=1in}
 \doublespacing
 
@@ -23,7 +24,7 @@
 \tableofcontents
 \newpage
 
-\section{$\alpha$-PCA method}
+\section{High-dimentional $\alpha$-PCA method}
 \subsection{Overall Summary}
 This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
 
@@ -34,25 +35,39 @@ The model is shown as the following:
 
 $$\mathbf{Y}_t = \mathbf{R}\mathbf{F}_t\mathbf{C}^T+\mathbf{E}_t$$
 
-$\mathbf{Y_t}: \mathbf{Y_t}\in \mathbb{R}^{p\times q}$, $1\leq t \leq T$, observations
+$\mathbf{Y_t}: \mathbf{Y_t}\in \mathbb{R}^{p\times q}$, $1\leq t \leq T$, observations,
 
-$\mathbf{F_t}: \mathbf{F_t}\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll q$ (\textbf{low rank}), latent matrix
+$\mathbf{F_t}: \mathbf{F_t}\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll q$ (\textbf{low rank}), latent matrix,
 
-$\mathbf{E_t}: \mathbf{E_t}\in \mathbb{R}^{p \times q}$, noise matrix
+$\mathbf{E_t}: \mathbf{E_t}\in \mathbb{R}^{p \times q}$, noise matrix.
 
 \subsection{Main Statistics}
+An estimation procedure, namely $\alpha$-PCA, aggregates the information in both first and second moments. Specifically, the two statistics are defined:
+$$\mathbf{\widehat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \mathbf{\overline{Y}}\mathbf{\overline{Y}}^T+\dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t-\mathbf{\overline{Y}})(\mathbf{Y}_t-\mathbf{\overline{Y}})^T\Bigg)$$
 
-$$\mathbf{\hat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \mathbf{}\Bigg)$$
+$$\mathbf{\widehat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot  \mathbf{\overline{Y}}^T\mathbf{\overline{Y}}+\dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t-\mathbf{\overline{Y}})^T(\mathbf{Y}_t-\mathbf{\overline{Y}})\Bigg)$$
 
-$$\mathbf{\hat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \Bigg)$$
+$\alpha: \alpha \in \left[-1,+\infty \right)$, a hyperparameter,
 
-$\alpha: \alpha \in \left[-1,+\infty \right)$, a hyperparameter 
+$\mathbf{\overline{Y}}=\dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the sample mean.
 
-$\mathbf{\bar{Y}}=\dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the sample mean
+Based on these two statistics, estimation of $\mathbf{R}$ and $\mathbf{C}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
+
 \subsection{Theoretical Properties}
+
+ 
+
 \subsection{Simulation}
 \subsection{Application}
-    
-   
+\section{High-Dimensional GLM with Binary Outcomes}
+\section [Ultra-High Dimensional GFM]{Ultra-High Dimensional GFM\footnote{Generalized Factor Model}}  
+
+\section{Matrix-variate Logistic Regression with Measurement Error}
+\section{A Likelihood-Based Approach for Multivariate Categorical Response Regression in High Dimensions}
+\section{A likelihood-Based Approach for Semiparametric Regression with Panel Count Data}
+
+
+\section{Time Series Latent Gaussian Count}
+\section{Time Series Factor Models(tensor)}   
 
 \end{document}
