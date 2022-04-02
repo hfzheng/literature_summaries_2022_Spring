@@ -1,4 +1,3 @@
-
 \documentclass{article}[12pt]
 
 
@@ -8,6 +7,10 @@
 \usepackage{geometry}
 \usepackage{setspace}
 \usepackage{hyperref}
+
+\def\lc{\left\lceil}   
+\def\rc{\right\rceil}
+
 \geometry{ margin=1in}
 \doublespacing
 
@@ -26,35 +29,104 @@
 
 \section{High-dimentional $\alpha$-PCA method}
 \subsection{Overall Summary}
-This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
+\noindent This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
 
 
 
-\subsection{Main model}
-The model is shown as the following:
+\subsection{Main model}\label{section main model 1.2}
+\noindent The model is shown as the following:
 
-$$\mathbf{Y}_t = \mathbf{R}\mathbf{F}_t\mathbf{C}^T+\mathbf{E}_t$$
+\begin{equation}
+    \mathbf{Y}_t = \underbrace{\mathbf{R}\mathbf{F}_t\mathbf{C}^T}_\text{signal part}+ \underbrace{\mathbf{E}_t}_\text{noise part}\
+    \label{expression main model 1.2}
+\end{equation}
 
-$\mathbf{Y_t}: \mathbf{Y_t}\in \mathbb{R}^{p\times q}$, $1\leq t \leq T$, observations,
 
-$\mathbf{F_t}: \mathbf{F_t}\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll q$ (\textbf{low rank}), latent matrix,
+$\mathbf{Y}_t: \mathbf{Y}_t\in \mathbb{R}^{p\times q}$, $1\leq t \leq T$, observations,
 
-$\mathbf{E_t}: \mathbf{E_t}\in \mathbb{R}^{p \times q}$, noise matrix.
+$\mathbf{F}_t: \mathbf{F}_t\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll q$ (\textbf{low rank}), latent matrix,
 
-\subsection{Main Statistics}
-An estimation procedure, namely $\alpha$-PCA, aggregates the information in both first and second moments. Specifically, the two statistics are defined:
-$$\mathbf{\widehat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot \mathbf{\overline{Y}}\mathbf{\overline{Y}}^T+\dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t-\mathbf{\overline{Y}})(\mathbf{Y}_t-\mathbf{\overline{Y}})^T\Bigg)$$
+$\mathbf{E}_t: \mathbf{E}_t\in \mathbb{R}^{p \times q}$, noise matrix.
 
-$$\mathbf{\widehat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1+\alpha) \cdot  \mathbf{\overline{Y}}^T\mathbf{\overline{Y}}+\dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t-\mathbf{\overline{Y}})^T(\mathbf{Y}_t-\mathbf{\overline{Y}})\Bigg)$$
+\subsection{Main Statistics}\label{main statistics 1.3}
+\noindent An estimation procedure, namely $\alpha$-PCA, aggregates the information in both first and second moments. Specifically, the two statistics are defined:
+\begin{equation}
+    \mathbf{\widehat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1 + \alpha) \cdot \mathbf{\overline{Y}}\mathbf{\overline{Y}}^T + \dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t - \mathbf{\overline{Y}})(\mathbf{Y}_t - \mathbf{\overline{Y}})^T\Bigg)
+    \label{statistics MR 1.3}
+\end{equation}
 
-$\alpha: \alpha \in \left[-1,+\infty \right)$, a hyperparameter,
+\begin{equation}
+    \mathbf{\widehat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1 + \alpha) \cdot  \mathbf{\overline{Y}}^T\mathbf{\overline{Y}} + \dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t - \mathbf{\overline{Y}})^T(\mathbf{Y}_t - \mathbf{\overline{Y}})\Bigg)
+    \label{statistics MC 1.3}
+\end{equation}
 
-$\mathbf{\overline{Y}}=\dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the sample mean.
 
-Based on these two statistics, estimation of $\mathbf{R}$ and $\mathbf{C}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
+$\alpha: \alpha \in \left[-1, + \infty \right)$, a hyperparameter,
 
+$\mathbf{\overline{Y}} = \dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the sample mean.
+
+\noindent Based on these two statistics, estimation of $\mathbf{R}$ and $\mathbf{C}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
+
+\subsection{Transformation}\label{transformation 1.4}
+\noindent To simplify the estimator, we can transform the parameters, let the $\tilde{\alpha} = \sqrt{\alpha + 1} - 1$, $\mathbf{\widetilde{Y}}_t \overset{\Delta}{=} \mathbf{Y}_t + \tilde{\alpha}\mathbf{\overline{Y}}$, $\mathbf{\widetilde{F}}_t \overset{\Delta}{=} \mathbf{F}_t + \tilde{\alpha}\mathbf{\overline{F}}$, and $\mathbf{\widetilde{E}}_t \overset{\Delta}{=} \mathbf{E}_t + \tilde{\alpha}\mathbf{\overline{E}}$, Then we have
+
+\begin{equation}
+    \mathbf{\widetilde{Y}}_t = \mathbf{R}\mathbf{\widetilde{F}}_t\mathbf{C}^T + \mathbf{\widetilde{E}}_t 
+\end{equation}
+
+\noindent The equation \ref{statistics MR 1.3} and \ref{statistics MC 1.3} can be rewritten as:
+
+\begin{equation}
+    \mathbf{\widehat{M}}_R = \frac{1}{pqT}\sum\limits_{t=1}^{T}\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T \text{, and } \mathbf{\widehat{M}}_C = \frac{1}{pqT}\sum\limits_{t=1}^{T}\mathbf{\widetilde{Y}}_t^T\mathbf{\widetilde{Y}}_t
+\end{equation}
+
+\noindent Same as in section \ref{main statistics 1.3}, $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
+
+\subsection{Interpretation}
+
+\noindent The estimator in Section \ref{section main model 1.2} approximately minimized jointly the unexplained variation and bias
+\begin{equation}
+    \begin{aligned}
+    & \underset{\mathbf{R},\mathbf{C},\{\mathbf{F}_t\}_{t=1}^T}{\textbf{minimize}}
+    & & (1+\alpha)\underbrace{\dfrac{1}{pq}\left\lVert \mathbf{\overline{Y}} - \mathbf{R}\mathbf{\overline{F}}\mathbf{C}^T\right\rVert_{F}^2}_\text{sample bias} + \underbrace{\dfrac{1}{pqT}\sum\limits_{t=1}^{T}\left\lVert \mathbf{Y}_t - \mathbf{R}\mathbf{F}\mathbf{C}^T\right\rVert_{F}^2}_\text{sample variance}\\
+    & \textbf{subject to}
+    & & \frac{1}{p}\mathbf{R}^T\mathbf{R} = \mathbf{I} \text{ , } \frac{1}{q}\mathbf{C}^T\mathbf{C} = \mathbf{I}
+    \end{aligned}
+\end{equation}
+
+\noindent The special case for $\alpha = -1$ corresponds to the least-square estimator.(\textbf{\textit{not convex}})
+
+\noindent Projecting on $\mathbf{R}$:
+
+\begin{equation}
+    \begin{aligned}
+    & \underset{\mathbb{R}}{\textbf{maximize}}
+    & & Tr\Bigg(\mathbb{E}\Bigg[(1+\alpha)(\mathbf{R}^T\mathbf{\overline{Y}})(\mathbf{R}^T\mathbf{\overline{Y}})^T+(\mathbf{R}^T\mathbf{Y}_t-\mathbb{E}\left[{R}^T\mathbf{Y}_t\right])(\mathbf{R}^T\mathbf{Y}_t-\mathbb{E}\left[{R}^T\mathbf{Y}_t\right])^T\Bigg]\Bigg)\\
+    & \textbf{subject to}
+    & & \frac{1}{p}\mathbf{R}^T\mathbf{R} = \mathbf{I}, \frac{1}{q}\mathbf{C}^T\mathbf{C} = \mathbf{I}
+    \end{aligned}
+\end{equation}
+
+\noindent Where
+$\mathbf{M}_R \overset{\Delta}{=} (1+\alpha)\mathbf{M}_R^{(1)}+\mathbf{M}_R^{(2)}, \mathbf{M}_R^{(1)} \overset{\Delta}{=} \dfrac{1}{pq}\mathbb{E}\left[\mathbf{\overline{Y}}\mathbf{\overline{Y}}^T\right] \text{, and } \mathbf{M}_R^{(2)} \overset{\Delta}{=} \dfrac{1}{pq}\mathbb{E}\left[\left(\mathbf{Y}_t-\mathbb{\left[\mathbf{\overline{Y}}\right]}\right)\left(\mathbf{Y}_t-\mathbb{\left[\mathbf{\overline{Y}}\right]}\right)^T\right]$
+
+\noindent Then a solution by maximizing row and column variances respectively after projection is considered, projecting on $\mathbf{C}$ is similar.(\textbf{\textit{convex}})
+
+
+\subsection{Relative estimators}
+Based on the section \ref{transformation 1.4}, 
+$$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y}}_t\mathbf{\widehat{C}}\text{, and the signal part }\mathbf{\widehat{S}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y}}_t\mathbf{\widehat{C}}\mathbf{\widehat{C}}^T$$
+ 
+\noindent Dimensions $k$ and $r$ are need to be determined:
+\begin{enumerate}
+    \item the eigenvalue ratio-based estimator, proposed by Ahn and Horestein(2013) 
+    \item the Scree plot which is standard in principal component analysis. 
+\end{enumerate}
+\noindent Let $\hat{\lambda}_1 \geq \hat{\lambda} \geq \cdots \geq \hat{\lambda}_k \geq 0$ be the ordered eigenvalues of $\mathbf{\widehat{M}}_R$. The ratio-based estimator for $k$ is defined as follows:
+    $$\widehat{k} = \underset{1 \leq j \leq k_{max}}{\arg\max }\dfrac{\widehat{\lambda}_j}{\widehat{\lambda}_{j+1}}$$
+    where $k_{max}$ is the upper bound, usually taken as $\lc\dfrac{p}{2}\rc$ or $\lc\dfrac{p}{3}\rc$, according to Ahn and Horestein(2013),  similarly for $\widehat{r}$ with respect to $\mathbf{\widehat{M}}_C$.  
 \subsection{Theoretical Properties}
-
+\subsubsection{Assumptions}
  
 
 \subsection{Simulation}
