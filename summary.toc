@@ -5,16 +5,16 @@
 \contentsline {subsection}{\numberline {1.4}Transformation}{4}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}Interpretation}{4}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Relative estimators}{5}{subsection.1.6}%
-\contentsline {subsection}{\numberline {1.7}Theoretical Properties}{6}{subsection.1.7}%
-\contentsline {subsubsection}{\numberline {1.7.1}Assumptions}{6}{subsubsection.1.7.1}%
-\contentsline {subsection}{\numberline {1.8}Simulation}{6}{subsection.1.8}%
-\contentsline {subsection}{\numberline {1.9}Application}{6}{subsection.1.9}%
-\contentsline {section}{\numberline {2}High-Dimensional GLM with Binary Outcomes}{6}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Overall Summary}{6}{subsection.2.1}%
-\contentsline {section}{\numberline {3}Ultra-High Dimensional GFM}{6}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Overall Summary}{6}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Matrix-variate Logistic Regression with Measurement Error}{6}{section.4}%
-\contentsline {section}{\numberline {5}A Likelihood-Based Approach for Multivariate Categorical Response Regression in High Dimensions}{6}{section.5}%
-\contentsline {section}{\numberline {6}A likelihood-Based Approach for Semiparametric Regression with Panel Count Data}{6}{section.6}%
-\contentsline {section}{\numberline {7}Time Series Latent Gaussian Count}{6}{section.7}%
-\contentsline {section}{\numberline {8}Time Series Factor Models(tensor)}{6}{section.8}%
+\contentsline {subsection}{\numberline {1.7}Theoretical Properties}{5}{subsection.1.7}%
+\contentsline {subsubsection}{\numberline {1.7.1}Assumptions}{5}{subsubsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.8}Simulation}{7}{subsection.1.8}%
+\contentsline {subsection}{\numberline {1.9}Application}{7}{subsection.1.9}%
+\contentsline {section}{\numberline {2}High-Dimensional GLM with Binary Outcomes}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Overall Summary}{7}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Ultra-High Dimensional GFM}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Overall Summary}{7}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Matrix-variate Logistic Regression with Measurement Error}{7}{section.4}%
+\contentsline {section}{\numberline {5}A Likelihood-Based Approach for Multivariate Categorical Response Regression in High Dimensions}{7}{section.5}%
+\contentsline {section}{\numberline {6}A likelihood-Based Approach for Semiparametric Regression with Panel Count Data}{7}{section.6}%
+\contentsline {section}{\numberline {7}Time Series Latent Gaussian Count}{7}{section.7}%
+\contentsline {section}{\numberline {8}Time Series Factor Models(tensor)}{7}{section.8}%
