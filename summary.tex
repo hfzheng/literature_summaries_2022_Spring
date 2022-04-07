@@ -37,12 +37,15 @@
 \newpage
 
 \section{High-dimentional $\alpha$-PCA method}
+
 \subsection{Overall Summary}
+
 \noindent This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
 
 
 
 \subsection{Main model}\label{section main model 1.2}
+
 \noindent The model is shown as the following:
 
 \begin{equation}
@@ -57,16 +60,17 @@ $\mathbf{F}_t: \mathbf{F}_t\in \mathbb{R}^{k\times r}$, where $k\ll p$ and $r\ll
 
 $\mathbf{E}_t: \mathbf{E}_t\in \mathbb{R}^{p \times q}$, noise matrix.
 
-\subsection{Main Statistics}\label{main statistics 1.3}
+\subsection{Main Statistics}\label{section main statistics 1.3}
+
 \noindent An estimation procedure, namely $\alpha$-PCA, aggregates the information in both first and second moments. Specifically, the two statistics are defined:
 \begin{equation}
     \mathbf{\widehat{M}}_R  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1 + \alpha) \cdot \mathbf{\overline{Y}}\mathbf{\overline{Y}}^T + \dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t - \mathbf{\overline{Y}})(\mathbf{Y}_t - \mathbf{\overline{Y}})^T\Bigg)
-    \label{statistics MR 1.3}
+    \label{equation statistics MR 1.3}
 \end{equation}
 
 \begin{equation}
     \mathbf{\widehat{M}}_C  \overset{\Delta}{=} \dfrac{1}{pq}\Bigg((1 + \alpha) \cdot  \mathbf{\overline{Y}}^T\mathbf{\overline{Y}} + \dfrac{1}{T}\sum\limits_{t=1}^T(\mathbf{Y}_t - \mathbf{\overline{Y}})^T(\mathbf{Y}_t - \mathbf{\overline{Y}})\Bigg)
-    \label{statistics MC 1.3}
+    \label{equation statistics MC 1.3}
 \end{equation}
 
 
@@ -76,20 +80,20 @@ $\mathbf{\overline{Y}} = \dfrac{1}{T} \sum\limits_{i=1}^T\mathbf{Y}_t$, the samp
 
 \noindent Based on these two statistics, estimation of $\mathbf{R}$ and $\mathbf{C}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
 
-\subsection{Transformation}\label{transformation 1.4}
+\subsection{Transformation}\label{section transformation 1.4}
 \noindent To simplify the estimator, we can transform the parameters, let the $\tilde{\alpha} = \sqrt{\alpha + 1} - 1$, $\mathbf{\widetilde{Y}}_t \overset{\Delta}{=} \mathbf{Y}_t + \tilde{\alpha}\mathbf{\overline{Y}}$, $\mathbf{\widetilde{F}}_t \overset{\Delta}{=} \mathbf{F}_t + \tilde{\alpha}\mathbf{\overline{F}}$, and $\mathbf{\widetilde{E}}_t \overset{\Delta}{=} \mathbf{E}_t + \tilde{\alpha}\mathbf{\overline{E}}$, Then we have
 
 \begin{equation}
     \mathbf{\widetilde{Y}}_t = \mathbf{R}\mathbf{\widetilde{F}}_t\mathbf{C}^T + \mathbf{\widetilde{E}}_t 
 \end{equation}
 
-\noindent The equation \ref{statistics MR 1.3} and \ref{statistics MC 1.3} can be rewritten as:
+\noindent The equation \ref{equation statistics MR 1.3} and \ref{equation statistics MC 1.3} can be rewritten as:
 
 \begin{equation}
     \mathbf{\widehat{M}}_R = \frac{1}{pqT}\sum\limits_{t=1}^{T}\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T \text{, and } \mathbf{\widehat{M}}_C = \frac{1}{pqT}\sum\limits_{t=1}^{T}\mathbf{\widetilde{Y}}_t^T\mathbf{\widetilde{Y}}_t
 \end{equation}
 
-\noindent Same as in section \ref{main statistics 1.3}, $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
+\noindent Same as in section \ref{section main statistics 1.3}, $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$ can be obtained as $\sqrt{p}$ times the top $k$ eigenvectors of $\widehat{\mathbf{M}}_R$ and $\sqrt{q}$ times the top $q$ eigenvectors of $\widehat{\mathbf{M}}_C$ respectively, in descending order by corresponding eigenvalues.
 
 \subsection{Interpretation}
 
@@ -123,7 +127,7 @@ $\mathbf{M}_R \overset{\Delta}{=} (1+\alpha)\mathbf{M}_R^{(1)}+\mathbf{M}_R^{(2)
 
 
 \subsection{Relative estimators}
-Based on the section \ref{transformation 1.4}, 
+Based on the section \ref{section transformation 1.4}, 
 $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y}}_t\mathbf{\widehat{C}}\text{, and the signal part }\mathbf{\widehat{S}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y}}_t\mathbf{\widehat{C}}\mathbf{\widehat{C}}^T$$
  
 \noindent Dimensions $k$ and $r$ are need to be determined:
@@ -134,8 +138,11 @@ $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y
 \noindent Let $\hat{\lambda}_1 \geq \hat{\lambda} \geq \cdots \geq \hat{\lambda}_k \geq 0$ be the ordered eigenvalues of $\mathbf{\widehat{M}}_R$. The ratio-based estimator for $k$ is defined as follows:
     $$\widehat{k} = \underset{1 \leq j \leq k_{max}}{\arg\max }\dfrac{\widehat{\lambda}_j}{\widehat{\lambda}_{j+1}}$$
     where $k_{max}$ is the upper bound, usually taken as $\lc\dfrac{p}{2}\rc$ or $\lc\dfrac{p}{3}\rc$, according to Ahn and Horestein(2013),  similarly for $\widehat{r}$ with respect to $\mathbf{\widehat{M}}_C$.  
+
 \subsection{Theoretical Properties}
+
 \subsubsection{Assumptions}
+
 \begin{assumption}\label{assumption 1 1.7.1}
     $\alpha$-\textbf{mixing}. \normalfont The vectorized factor VEC$(\mathbf{F}_t)$ and noise VEC$(\mathbf{E}_t)$ are $\alpha$-mixing. Specifically, a vector process $\{\mathbf{x}_t, t=0, \pm 1,\pm 2,\cdots\}$ is $\alpha$-mixing if, for some $\gamma \geq 2$, the mixing coefficients satisfy the condition that
     $$\mathlarger{\sum}_{h=1}^{+\infty} \alpha(h)^{1-\frac{2}{\gamma}} < \infty$$
@@ -174,16 +181,17 @@ $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y
     \begin{enumerate}
         \item For any $l \in \left[k\right]$, $i \in \left[p\right]$, and $t \in \left[T\right]$, $\mathbb{E}\left[|\dfrac{1}{\sqrt{q}}\sum_{j=1}^{q}e_{t,ij}|^{mb}\right] = \mathcal{O}(1)$, $\mathbb{E}\left[\lVert\dfrac{1}{\sqrt{q}}\sum_{j=1}^{q}\mathbf{C}_{j\cdot}e_{t,ij}\rVert^{mb}\right] = \mathcal{O}(1)$, and $\mathbb{E}\left[\lVert\mathbf{f}_{t,l\cdot}\rVert^{ma}\right] \leq C$
         \item For any $h \in \left[r\right]$, $j \in \left[q\right]$, and $t \in \left[T\right]$, $\mathbb{E}\left[|\dfrac{1}{\sqrt{p}}\sum_{i=1}^{p}e_{t,ij}|^{mb}\right] = \mathcal{O}(1)$, $\mathbb{E}\left[\lVert\dfrac{1}{\sqrt{p}}\sum_{i=1}^{p}\mathbf{R}_{i\cdot}e_{t,ij}\rVert^{mb}\right] = \mathcal{O}(1)$, and $\mathbb{E}\left[\lVert\mathbf{f}_{t,\cdot h}\rVert^{ma}\right] \leq C$
-        \item For any and $t \in \left[T\right]$, $\mathbb{E}\left[|\dfrac{1}{\sqrt{pq}}\sum_{i=1}^{p}\sum_{j=1}^qe_{t,ij}|^{mb}\right] = \mathcal{O}(1)$, $\mathbb{E}\left[\lVert\dfrac{1}{\sqrt{pq}}\sum_{i=1}^{p}\sum_{j=1}^q\mathbf{R}_{i\cdot}\mathbf{C}_{j\cdot}^Te_{t,ij}\rVert^{mb}\right] = \mathcal{O}(1)$.
-        
+        \item For any and $t \in \left[T\right]$, $\mathbb{E}\left[|\dfrac{1}{\sqrt{pq}}\sum_{i=1}^{p}\sum_{j=1}^qe_{t,ij}|^{mb}\right] = \mathcal{O}(1)$, $\mathbb{E}\left[\lVert\dfrac{1}{\sqrt{pq}}\sum_{i=1}^{p}\sum_{j=1}^q\mathbf{R}_{i\cdot}\mathbf{C}_{j\cdot}^Te_{t,ij}\rVert^{mb}\right] = \mathcal{O}(1)$.    
     \end{enumerate}
     
     (\textbf{\textit{satisfied by Gaussian noise $\mathbf{E}_t$ with i.i.d. columns and rows}})
 \end{assumption}
 
-
- 
-
+\subsubsection{Theorems}
+ Let $\mathbf{V}_{R,pqT} \in \mathbb{R}^{k times k}$ and $\mathbf{V}_{C,pqT} \in \mathbb{R}^{r times r}$ be the diagonal matrices consisting of the first k and r largest eigenvalues of $\mathbf{\widehat{M}}_R$ and $\mathbf{\widehat{M}}_C$ in Section \ref{section transformation 1.4} in a decreasing order. By definition of estimators $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$,
+ \begin{equation}
+    \mathbf{\widehat{R}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T \mathbf{\widehat{R}} \mathbf{V}_{R,pqT}^{-1} \text{ and } \mathbf{\widehat{C}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t^T\mathbf{\widetilde{Y}}_t \mathbf{\widehat{C}} \mathbf{V}_{C,pqT}^{-1}
+ \end{equation}
 \subsection{Simulation}
 
 \subsection{Application}

@@ -7,6 +7,7 @@
 \contentsline {subsection}{\numberline {1.6}Relative estimators}{5}{subsection.1.6}%
 \contentsline {subsection}{\numberline {1.7}Theoretical Properties}{5}{subsection.1.7}%
 \contentsline {subsubsection}{\numberline {1.7.1}Assumptions}{5}{subsubsection.1.7.1}%
+\contentsline {subsubsection}{\numberline {1.7.2}Theorems}{7}{subsubsection.1.7.2}%
 \contentsline {subsection}{\numberline {1.8}Simulation}{7}{subsection.1.8}%
 \contentsline {subsection}{\numberline {1.9}Application}{7}{subsection.1.9}%
 \contentsline {section}{\numberline {2}High-Dimensional GLM with Binary Outcomes}{7}{section.2}%
