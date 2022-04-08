@@ -9,7 +9,7 @@
 \usepackage{setspace}
 \usepackage{hyperref}
 \usepackage{relsize}
-
+\usepackage{cleveref}
 \def\lc{\left\lceil}   
 \def\rc{\right\rceil}
 \newtheorem{assumption}{Assumption}
@@ -18,6 +18,7 @@
   \renewcommand\theassumptionalt{#1}
   \assumptionalt
 }{\endassumptionalt}
+\newtheorem{theorem}{Theorem}
 
 
 \geometry{ margin=1in}
@@ -141,6 +142,38 @@ $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y
 
 \subsection{Theoretical Properties}
 
+\subsubsection{Denotation and Definition}
+Before presenting the assumptions and theorems, some quantities need to be defined or denoted, 
+\begin{enumerate}
+    \item  Let $\mathbf{V}_{R,pqT} \in \mathbb{R}^{k \times k}$ and $\mathbf{V}_{C,pqT} \in \mathbb{R}^{r \times r}$ be the diagonal matrices consisting of the first k and r largest eigenvalues of $\mathbf{\widehat{M}}_R$ and $\mathbf{\widehat{M}}_C$ in Section \ref{section transformation 1.4} in a decreasing order. By definition of estimators $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$,
+    \begin{equation}
+       \mathbf{\widehat{R}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T \mathbf{\widehat{R}} \mathbf{V}_{R,pqT}^{-1} \text{ and } \mathbf{\widehat{C}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t^T\mathbf{\widetilde{Y}}_t \mathbf{\widehat{C}} \mathbf{V}_{C,pqT}^{-1}
+    \end{equation}
+    \item \noindent Define $\mathbf{H}_R \in \mathbb{R}^{k \times k}$ and $\mathbf{H}_C \in \mathbb{R}^{r \times r}$ as 
+    \begin{equation}
+       \mathbf{H}_R \overset{\Delta}{=} \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{C}\mathbf{\widetilde{F}}_t^T\mathbf{R}^T\mathbf{\widehat{R}}\mathbf{V}_{R,pqT}^{-1} \in \mathbb{R}^{k \times k}
+    \end{equation}
+    \begin{equation}
+       \mathbf{H}_C \overset{\Delta}{=} \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{F}}_t\mathbf{R}^T\mathbf{R}\mathbf{\widetilde{F}}_t^T\mathbf{C}^T\mathbf{\widehat{C}}\mathbf{V}_{R,pqT}^{-1} \in \mathbb{R}^{r \times r}
+    \end{equation}
+    \noindent (\textbf{\textit{bounded as $p,q,T \rightarrow \infty $}})
+    \item Let $\mu_F = \mathbb{E}\left[\mathbf{F}_t\right]$ 
+    and
+    \begin{equation}
+       \Sigma_{FC} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\mu_F)(\dfrac{\mathbf{C}^T\mathbf{C}}{q})(\mathbf{F}_t-\mu_F)^T\right] \text{ and } 
+       \Sigma_{FR} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\mu_F)^T(\dfrac{\mathbf{R}^T\mathbf{R}}{p})(\mathbf{F}_t-\mu_F)\right] 
+    \end{equation}
+    then 
+
+    \begin{equation} 
+       \begin{split}
+           \widetilde{\Sigma}_{FC} &\overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{C}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FC} + (\alpha + 1)\dfrac{1}{q}\mu_F\mathbf{C}^T\mathbf{C}\mu_F^T \\
+           \widetilde{\Sigma}_{FR} & \overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{R}^T\mathbf{R}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FR} + (\alpha + 1)\dfrac{1}{q}\mu_F\mathbf{R}^T\mathbf{R}\mu_F^T 
+       \end{split}
+    \end{equation}
+    \noindent (\textbf{\textit{Matrix $\Sigma$ can be interpreted as scaled row/column of $\mathbf{F}_t$}})
+\end{enumerate}
+
 \subsubsection{Assumptions}
 
 \begin{assumption}\label{assumption 1 1.7.1}
@@ -169,11 +202,11 @@ $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y
         \item For all row $i \in \left[p\right]$ and $j \in \left[q\right]$ and $t \in \left[T\right]$, we assume $\sum_{l \in p, l \neq i}\sum_{h \in q, h \neq j}|\mathbb{E}\left[e_{t,ij}e_{t,lh}\right]|\leq C$.
         \item For any row $i,l \in \left[p\right]$, any time $t \in \left[T\right]$, and any column $j \in \left[q\right]$,
         $$\sum\limits_{m \in \left[p\right]}\sum\limits_{s \in \left[T\right]}\sum\limits_{h \in \left[q\right], h \neq j}|cov\left[e_{t,ij}e_{t,lj},e_{s,ih}e_{s,mh}\right]| \leq C$$
-        Similar, for any column $j,h \in \left[q\right]$, any time $t \in \left[T\right]$, and any row $i \in \left[p\right]$,
+        \noindent Similar, for any column $j,h \in \left[q\right]$, any time $t \in \left[T\right]$, and any row $i \in \left[p\right]$,
         $$\sum\limits_{m \in \left[q\right]}\sum\limits_{s \in \left[T\right]}\sum\limits_{l \in \left[p\right], l \neq i}|cov\left[e_{t,ij}e_{t,ih},e_{s,lj}e_{s,lm}\right]| \leq C$$
     \end{enumerate}
     
-    (\textbf{\textit{automatically hold when the errors $\mathbf{E}_t$ are i.i.d. over rows and columns for any t, C for weak correlation}})
+    \noindent (\textbf{\textit{automatically hold when the errors $\mathbf{E}_t$ are i.i.d. over rows and columns for any t, C for weak correlation}})
 \end{assumption}
 
 \begin{assumption}\label{assumption 5 1.7.1}
@@ -187,11 +220,24 @@ $$\mathbf{\widehat{F}}_t = \dfrac{1}{pq}\mathbf{\widehat{R}}^T\mathbf{\widehat{Y
     (\textbf{\textit{satisfied by Gaussian noise $\mathbf{E}_t$ with i.i.d. columns and rows}})
 \end{assumption}
 
+\begin{assumption}\label{assumption 6 1.7.1}
+    
+\end{assumption}
+
 \subsubsection{Theorems}
- Let $\mathbf{V}_{R,pqT} \in \mathbb{R}^{k times k}$ and $\mathbf{V}_{C,pqT} \in \mathbb{R}^{r times r}$ be the diagonal matrices consisting of the first k and r largest eigenvalues of $\mathbf{\widehat{M}}_R$ and $\mathbf{\widehat{M}}_C$ in Section \ref{section transformation 1.4} in a decreasing order. By definition of estimators $\mathbf{\widehat{R}}$ and $\mathbf{\widehat{C}}$,
- \begin{equation}
-    \mathbf{\widehat{R}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T \mathbf{\widehat{R}} \mathbf{V}_{R,pqT}^{-1} \text{ and } \mathbf{\widehat{C}} = \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t^T\mathbf{\widetilde{Y}}_t \mathbf{\widehat{C}} \mathbf{V}_{C,pqT}^{-1}
- \end{equation}
+
+
+
+
+\begin{theorem}
+    \normalfont Under  \cref{assumption 1 1.7.1,assumption 2 1.7.1,assumption 3 1.7.1,assumption 4 1.7.1,assumption 5 1.7.1}, we have as $k,r$ fixed and $p,q,T \rightarrow \infty$,
+    $$\dfrac{1}{p}\lVert\mathbf{\widehat{R}} - \mathbf{R}\mathbf{H}_R\rVert_F^2 = \mathcal{O}_p\left(\dfrac{1}{\min\{p,qT\}}\right)$$
+    $$\dfrac{1}{q}\lVert\mathbf{\widehat{C}} - \mathbf{C}\mathbf{H}_C\rVert_F^2 = \mathcal{O}_p\left(\dfrac{1}{\min\{p,qT\}}\right)$$
+Consequently,
+    $$\dfrac{1}{p}\lVert\mathbf{\widehat{R}} - \mathbf{R}\mathbf{H}_R\rVert^2 = \mathcal{O}_p\left(\dfrac{1}{\min\{p,qT\}}\right)$$
+    $$\dfrac{1}{q}\lVert\mathbf{\widehat{C}} - \mathbf{C}\mathbf{H}_C\rVert^2 = \mathcal{O}_p\left(\dfrac{1}{\min\{p,qT\}}\right)$$
+\end{theorem}
+\noindent (\textbf{\textit{converge faster than the PCA for the vectorized model}})
 \subsection{Simulation}
 
 \subsection{Application}
