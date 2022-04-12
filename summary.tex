@@ -10,6 +10,7 @@
 \usepackage{hyperref}
 \usepackage{relsize}
 \usepackage{cleveref}
+\usepackage{bm}
 \def\lc{\left\lceil}   
 \def\rc{\right\rceil}
 \newtheorem{assumption}{Assumption}
@@ -42,7 +43,7 @@
 
 \subsection{Overall Summary}
 
-\noindent This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and we propose an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
+\noindent This article considers the estimation and inference of the \textbf{low rank} components in high-dimentional matrixvariate models(tensor), and the author proposes an estimation method called $\alpha$-PCA and it has some benefits with the high dimensions data favorably compared with other methods(traditional PCA, etc) based on the perfomance in the simulation.
 
 
 
@@ -158,22 +159,44 @@ Before presenting the assumptions and theorems, some quantities need to be defin
        \mathbf{H}_C \overset{\Delta}{=} \dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{F}}_t\mathbf{R}^T\mathbf{R}\mathbf{\widetilde{F}}_t^T\mathbf{C}^T\mathbf{\widehat{C}}\mathbf{V}_{R,pqT}^{-1} \in \mathbb{R}^{r \times r}
     \end{equation}
     \noindent (\textbf{\textit{bounded as $p,q,T \rightarrow \infty $}})
-    \item Let $\mu_F = \mathbb{E}\left[\mathbf{F}_t\right]$ 
+    \item Let $\bm{\mu}_F = \mathbb{E}\left[\mathbf{F}_t\right]$ 
     and
     \begin{equation}
-       \Sigma_{FC} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\mu_F)(\dfrac{\mathbf{C}^T\mathbf{C}}{q})(\mathbf{F}_t-\mu_F)^T\right] \text{ and } 
-       \Sigma_{FR} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\mu_F)^T(\dfrac{\mathbf{R}^T\mathbf{R}}{p})(\mathbf{F}_t-\mu_F)\right] 
+       \Sigma_{FC} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\bm{\mu}_F)(\dfrac{\mathbf{C}^T\mathbf{C}}{q})(\mathbf{F}_t-\bm{\mu}_F)^T\right] \text{ and } 
+       \Sigma_{FR} \overset{\Delta}{=} \mathbb{E}\left[(\mathbf{F}_t-\bm{\mu}_F)^T(\dfrac{\mathbf{R}^T\mathbf{R}}{p})(\mathbf{F}_t-\bm{\mu}_F)\right] 
     \end{equation}
     then 
 
     \begin{equation} 
        \begin{split}
-           \widetilde{\Sigma}_{FC} &\overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{C}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FC} + (\alpha + 1)\dfrac{1}{q}\mu_F\mathbf{C}^T\mathbf{C}\mu_F^T \\
-           \widetilde{\Sigma}_{FR} & \overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{R}^T\mathbf{R}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FR} + (\alpha + 1)\dfrac{1}{q}\mu_F\mathbf{R}^T\mathbf{R}\mu_F^T 
+           \widetilde{\Sigma}_{FC} &\overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{C}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FC} + (\alpha + 1)\dfrac{1}{q}\bm{\mu}_F\mathbf{C}^T\mathbf{C}\bm{\mu}_F^T \\
+           \widetilde{\Sigma}_{FR} & \overset{\Delta}{=} \dfrac{1}{q}\mathbb{E}\left[\mathbf{\widetilde{F}}_t\mathbf{R}^T\mathbf{R}\mathbf{\widetilde{F}}_t^T\right] =   \Sigma_{FR} + (\alpha + 1)\dfrac{1}{q}\bm{\mu}_F\mathbf{R}^T\mathbf{R}\bm{\mu}_F^T 
        \end{split}
     \end{equation}
     \noindent (\textbf{\textit{Matrix $\Sigma$ can be interpreted as scaled row/column of $\mathbf{F}_t$}})
+    \item Matrix $\mathbf{Q}_R$ and $\Psi_R$:
+    \begin{equation}
+        \mathbf{Q}_R \overset{\Delta}{=} \mathbf{V}_R^{-1/2}\Psi_R^{T}\widetilde{\Sigma}_{FC}^{-1/2}
+    \end{equation}
+    where $\mathbf{V}_R$ is a diagonal matrix whose entries are the eigenvalues of $\widetilde{\Sigma}_{FC}^{1/2}\Omega_R\widetilde{\Sigma}_{FC}^{1/2}$ in the decreasing order, $\Psi_R$ is the corresponding eigenvector matrix such that $\Psi_R^T\Psi_R=\mathbf{I}$
+    \item The asymptotic covariance of $\mathbf{\widehat{R}}_{i\cdot}$ is given by
+    $$
+    \Sigma_R = \mathbf{V}_{R,pqT}^{-1}\mathbf{Q}_R
+    \begin{pmatrix}
+        \mathbf{I}_R & \alpha\bm{\mu}_F
+    \end{pmatrix}	
+    \begin{pmatrix}
+        \Phi_{R,i,11} & \Phi_{R,i,12} \\
+        \Phi_{R,i,21} & \Phi_{R,i,22}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \mathbf{I}_R \\ \alpha\bm{\mu}_F^T
+    \end{pmatrix}	
+    \mathbf{Q}_R^T\mathbf{V}_{R,pqT}^{-1}
+    $$
+    where $\mathbf{V}_{R,pqT}$ is estimated as the $k \times k$ diagonal matrix of the first k largest eigenvalues of $\dfrac{1}{pqT}\sum_{t=1}^T\mathbf{\widetilde{Y}}_t\mathbf{\widetilde{Y}}_t^T$
 \end{enumerate}
+
 
 \subsubsection{Assumptions}
 
@@ -243,22 +266,40 @@ Consequently,
     \begin{enumerate}
         \item For row loading matrix $\mathbf{R}$, if $\dfrac{\sqrt{qT}}{p} \rightarrow 0$, then
         
-        $\sqrt{qT}(\mathbf{\widehat{R}}_{i\cdot}-\mathbf{H}_R^T\mathbf{R}_{i\cdot}) = \mathbf{V}_{R,pqT}^{-1}\cdot \dfrac{\mathbf{\widehat{R}}^T\mathbf{R}}{p}\cdot \dfrac{1}{\sqrt{qT}}\sum\limits_{t=1}^T\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{\widetilde{E}}_{t,i\cdot}+o_p(1) \xrightarrow{\mathcal{D}} \mathcal{N}(0,\Sigma_{R_i})$
+        $\sqrt{qT}(\mathbf{\widehat{R}}_{i\cdot}-\mathbf{H}_R^T\mathbf{R}_{i\cdot}) = \mathbf{V}_{R,pqT}^{-1}\cdot \dfrac{\mathbf{\widehat{R}}^T\mathbf{R}}{p}\cdot \dfrac{1}{\sqrt{qT}}\sum\limits_{t=1}^T\mathbf{\widetilde{F}}_t\mathbf{C}^T\mathbf{\widetilde{E}}_{t,i\cdot}+o_p(1) \xrightarrow{\mathcal{D}} \mathcal{N}(\mathbf{0},\Sigma_{R_i})$
         
         where             
 
-        $\Sigma_{R_i}  \overset{\Delta}{=} \mathbf{V}_R^{-1}\mathbf{Q}_R(\Phi_{R,i,11}+\alpha\Phi_{R,i,12}\mu_F^T+\alpha\mu_F\Phi_{R,i,21}+\alpha^2\mu_F\Phi_{R,i,22}\mu_F^T)\mathbf{Q}_R^T\mathbf{V}_R^{-1}$
+        $\Sigma_{R_i}  \overset{\Delta}{=} \mathbf{V}_R^{-1}\mathbf{Q}_R(\Phi_{R,i,11}+\alpha\Phi_{R,i,12}\bm{\mu}_F^T+\alpha\bm{\mu}_F\Phi_{R,i,21}+\alpha^2\bm{\mu}_F\Phi_{R,i,22}\bm{\mu}_F^T)\mathbf{Q}_R^T\mathbf{V}_R^{-1}$
 
         and 
 
         $\Phi_{R,i,11} = \underset{q,T \rightarrow \infty}{plim}\dfrac{1}{qT}\sum\limits_{t=1}^T\sum\limits_{s=1}^T\mathbb{E}\left[\mathbf{F}_t\mathbf{C}^T\mathbf{e}_{t,i\cdot}\mathbf{e}_{s,i\cdot}^T\mathbf{C}\right]$,
 
-        $\Phi_{R,i,12} = \Phi_{R,i,21}^T = \underset{q,T \rightarrow \infty}{plim}\dfrac{1}{qT}\sum\limits_{t=1}^T\sum\limits_{s=1}^T\mathbb{E}\left[\mathbf{F}_t\mathbf{C}^T\mathbf{e}_{t,i\cdot}\mathbf{e}_{s,i\cdot}^T\mathbf{C}\mathbf{F}_s^T\right]$
+        $\Phi_{R,i,12} = \Phi_{R,i,21}^T = \underset{q,T \rightarrow \infty}{plim}\dfrac{1}{qT}\sum\limits_{t=1}^T\sum\limits_{s=1}^T\mathbb{E}\left[\mathbf{F}_t\mathbf{C}^T\mathbf{e}_{t,i\cdot}\mathbf{e}_{s,i\cdot}^T\mathbf{C}\right]$
 
+        $\Phi_{R,i,22}  = \underset{q,T \rightarrow \infty}{plim}\dfrac{1}{qT}\sum\limits_{t=1}^T\sum\limits_{s=1}^T\mathbb{E}\left[\mathbf{C}^T\mathbf{e}_{t,i\cdot}\mathbf{e}_{s,i\cdot}^T\mathbf{C}\right]$
 
+        \item For column loading matrix $\mathbf{C}$, the asymptotic distribution deduction and formula are similar as the row loading matrix $\mathbf{R}$.   
     \end{enumerate}
 \end{theorem}
-\noindent (\textbf{\textit{converge faster than the PCA for the vectorized model}})
+\noindent (\textbf{\textit{the asymptotic variance minimum exists for calculating the optimal $\alpha$ from theoretical perspective}})
+
+\begin{theorem}
+    \normalfont Under  \Cref{assumption 1 1.7.1,assumption 2 1.7.1,assumption 3 1.7.1,assumption 4 1.7.1,assumption 5 1.7.1,assumption 6 1.7.1}, as $k,r$ fixed and $p,q,T \rightarrow \infty$, we have 
+    $$
+    \mathbf{\widehat{F}}_t-\mathbf{H}_R^{-1}\mathbf{F}_t\mathbf{H}_C^{-1^T} = \mathcal{O}_p\left(\dfrac{1}{\min\left(p,q\right)}\right).
+    $$
+\end{theorem}
+\noindent (\textbf{\textit{convergence rate of distance between latent part estimator $\mathbf{\widehat{F}_t}$ and true value $\mathbf{F}_t$}})
+
+\begin{theorem}
+    \normalfont Under  \Cref{assumption 1 1.7.1,assumption 2 1.7.1,assumption 3 1.7.1,assumption 4 1.7.1,assumption 5 1.7.1,assumption 6 1.7.1}, as $k,r$ fixed and $p,q,T \rightarrow \infty$, we have 
+    $$
+    \mathbf{\widehat{S}}_{t,ij}-\mathbf{S}_{t,ij}= \mathcal{O}_p\left(\dfrac{1}{\min\left(p,q,\sqrt{pT},\sqrt{qT}\right)}\right) \text{, for any } 1 \leq i \leq p \text{ and } 1 \leq j \leq q
+    $$
+\end{theorem}
+\noindent (\textbf{\textit{convergence rate of distance between signal part estimator $\mathbf{\widehat{S}_t}$ and true value $\mathbf{S}_t$}})
 
 \subsection{Simulation}
 
@@ -277,7 +318,6 @@ Consequently,
 \section{A Likelihood-Based Approach for Multivariate Categorical Response Regression in High Dimensions}
 
 \section{A likelihood-Based Approach for Semiparametric Regression with Panel Count Data}
-
 
 \section{Time Series Latent Gaussian Count}
 
